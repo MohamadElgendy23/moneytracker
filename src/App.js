@@ -39,7 +39,7 @@ function App() {
       });
     });
   }
-
+  // calculate $ and ¢ for balance
   let balance = 0;
   for (const transaction of transactions) {
     balance = balance + transaction.price;
