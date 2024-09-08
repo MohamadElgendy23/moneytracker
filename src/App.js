@@ -77,7 +77,7 @@ function App() {
         <button type="submit">Add new transaction</button>
         <div className="transactions">
           {transactions.length > 0 &&
-            transactions.map((transaction) => {
+            transactions.map((transaction) => (
               <div className="transaction">
                 <div className="left">
                   <div className="name">{transaction.name}</div>
@@ -93,8 +93,8 @@ function App() {
                   </div>
                   <div className="datetime">{transaction.datetime}</div>
                 </div>
-              </div>;
-            })}
+              </div>
+            ))}
         </div>
       </form>
       <div className="transactions"></div>

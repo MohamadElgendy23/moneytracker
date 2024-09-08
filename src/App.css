@@ -4,6 +4,7 @@
 body {
   background-color: #17181F;
   color: #ddd;
+  height: 100vh;
 }
 main {
   max-width: 360px;
