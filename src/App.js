@@ -39,6 +39,22 @@ function App() {
       });
     });
   }
+
+  function editTransaction() {}
+
+  function deleteTransaction(id) {
+    const url = process.env.REACT_APP_API_URL + `/transaction/delete/${id}`;
+    fetch(url, {
+      method: "DELETE",
+      headers: { "Content-type": "application/json" },
+    }).then((response) => {
+      response.json().then(() => {
+        setTransactions((transactions) => {
+          return transactions.filter((transaction) => transaction.id !== id);
+        });
+      });
+    });
+  }
   // calculate $ and ¢ for balance
   let balance = 0;
   for (const transaction of transactions) {
@@ -48,57 +64,73 @@ function App() {
   const fraction = balance.split(".")[1];
   balance = balance.split(".")[0];
   return (
-    <main>
-      <h1>
-        {balance}
-        <span>{fraction}</span>
-      </h1>
-      <form onSubmit={addNewTransaction}>
-        <div className="basic">
-          <input
-            type="text"
-            value={name}
-            onChange={(ev) => setName(ev.target.value)}
-            placeholder={"+200 new samsung tv"}
-          ></input>
-          <input
-            type="datetime-local"
-            value={datetime}
-            onChange={(ev) => setDatetime(ev.target.value)}
-          ></input>
-        </div>
-        <div className="description">
-          <input
-            type="text"
-            placeholder={"description"}
-            onChange={(ev) => setDescription(ev.target.value)}
-          ></input>
-        </div>
-        <button type="submit">Add new transaction</button>
-        <div className="transactions">
-          {transactions.length > 0 &&
-            transactions.map((transaction) => (
-              <div className="transaction">
-                <div className="left">
-                  <div className="name">{transaction.name}</div>
-                  <div className="description">{transaction.description}</div>
-                </div>
-                <div className="right">
-                  <div
-                    className={
-                      "price " + (transaction.price < 0 ? "red" : "green")
-                    }
-                  >
-                    {transaction.price}
+    <div className="wrapper">
+      <main>
+        <nav>
+          <h1>Money Tracker</h1>
+        </nav>
+        <h4 color="gray">Total Balance</h4>
+        <h2>
+          ${balance}
+          <span>{fraction}</span>
+        </h2>
+        <form onSubmit={addNewTransaction}>
+          <div className="basic">
+            <input
+              type="text"
+              value={name}
+              onChange={(ev) => setName(ev.target.value)}
+              placeholder={"+200 new samsung tv"}
+            ></input>
+            <input
+              type="datetime-local"
+              value={datetime}
+              onChange={(ev) => setDatetime(ev.target.value)}
+            ></input>
+          </div>
+          <div className="description">
+            <input
+              type="text"
+              value={description}
+              onChange={(ev) => setDescription(ev.target.value)}
+              placeholder={"description"}
+            ></input>
+          </div>
+          <button type="submit">Add new transaction</button>
+          <div className="transactions">
+            {transactions.length > 0 &&
+              transactions.map((transaction) => (
+                <div className="transaction">
+                  <div className="left">
+                    <div className="name">{transaction.name}</div>
+                    <div className="description">{transaction.description}</div>
                   </div>
-                  <div className="datetime">{transaction.datetime}</div>
+                  <div className="right">
+                    <div
+                      className={
+                        "price " + (transaction.price < 0 ? "red" : "green")
+                      }
+                    >
+                      {transaction.price}
+                    </div>
+                    <div className="datetime">{transaction.datetime}</div>
+                    <div className="alter-actions-container">
+                      <button onClick={editTransaction}>Edit</button>
+                      <button
+                        type="button"
+                        onClick={() => deleteTransaction(transaction._id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
-        </div>
-      </form>
-      <div className="transactions"></div>
-    </main>
+              ))}
+          </div>
+        </form>
+        <div className="transactions"></div>
+      </main>
+    </div>
   );
 }
 

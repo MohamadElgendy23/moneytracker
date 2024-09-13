@@ -1,26 +1,36 @@
 *{
   box-sizing: border-box;
 }
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 body {
   background-color: #17181F;
   color: #ddd;
   height: 100vh;
 }
-main {
-  max-width: 360px;
-  margin: 50px auto;
-}
 h1 {
+  text-align: center;
+  font-size: xx-large;
+}
+h4{
+  text-align: center;
+  margin: 0;
+  margin-bottom: 7px;
+}
+h2 {
   text-align: center;
   color: #fff;
   margin: 0;
-  font-size: 2.5rem;
+  font-size: 2.0rem;
 }
-h1 span {
-  font-size: 1rem;
+h2 span {
+  font-size: 1.0rem;
   vertical-align: top;
   display: inline-block;
-  margin-top: 6px;
 }
 form {
   margin-top: 20px;
@@ -80,4 +90,11 @@ div.price.red {
 div.transaction div.datetime {
   font-size: .7rem;
   color: #888;
+}
+.alter-actions-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: right;
+  gap: 7px;
 }

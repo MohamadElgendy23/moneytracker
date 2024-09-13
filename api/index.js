@@ -7,9 +7,6 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.get("/api/test", (req, res) => {
-  res.json("test ok");
-});
 
 app.post("/api/transaction", async (req, res) => {
   await mongoose.connect(process.env.MONGO_URL);
@@ -28,6 +25,18 @@ app.get("/api/transactions", async (req, res) => {
   await mongoose.connect(process.env.MONGO_URL);
   const transactions = await Transaction.find();
   res.json(transactions);
+});
+
+app.patch("/api/transaction/edit/:id", async (req, res) => {
+  await mongoose.connect(process.env.MONGO_URL);
+});
+
+app.delete("/api/transaction/delete/:id", async (req, res) => {
+  await mongoose.connect(process.env.MONGO_URL);
+  const id = req.params.id;
+  const transaction = await Transaction.findByIdAndDelete({ _id: id });
+  console.log(transaction);
+  res.json(transaction);
 });
 
 app.listen(4040, () => {
