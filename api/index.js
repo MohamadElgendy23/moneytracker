@@ -27,10 +27,6 @@ app.get("/api/transactions", async (req, res) => {
   res.json(transactions);
 });
 
-app.patch("/api/transaction/edit/:id", async (req, res) => {
-  await mongoose.connect(process.env.MONGO_URL);
-});
-
 app.delete("/api/transaction/delete/:id", async (req, res) => {
   await mongoose.connect(process.env.MONGO_URL);
   const id = req.params.id;

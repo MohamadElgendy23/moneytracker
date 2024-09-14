@@ -9,7 +9,7 @@ function App() {
 
   useEffect(() => {
     getTransactions().then(setTransactions);
-  }, []);
+  }, [transactions]);
 
   async function getTransactions() {
     const url = process.env.REACT_APP_API_URL + "/transactions";
@@ -39,8 +39,6 @@ function App() {
       });
     });
   }
-
-  function editTransaction() {}
 
   function deleteTransaction(id) {
     const url = process.env.REACT_APP_API_URL + `/transaction/delete/${id}`;
@@ -115,7 +113,6 @@ function App() {
                     </div>
                     <div className="datetime">{transaction.datetime}</div>
                     <div className="alter-actions-container">
-                      <button onClick={editTransaction}>Edit</button>
                       <button
                         type="button"
                         onClick={() => deleteTransaction(transaction._id)}
